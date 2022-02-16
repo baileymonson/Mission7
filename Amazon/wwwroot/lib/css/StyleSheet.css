@@ -1,0 +1,62 @@
+﻿/*my default css page for my website*/
+
+
+body {
+    text-align: center;
+    background-color: #bec1aa;
+    font-family: 'Bodoni MT';
+    font-size: 17px;
+    color: black;
+    align-content: center;
+}
+
+label {
+    font-size: 15px;
+    width: 100px;
+    display: inline-block;
+    color: black;
+}
+
+img {
+    border: 3px solid #f7f4eb;
+}
+
+form {
+    border: solid;
+    border-block-color: black;
+    align-content: center;
+}
+
+li {
+    list-style-type: none;
+}
+
+div {
+    align-content: center;
+    text-align: center;
+    background-color: #f7f4eb;
+}
+
+#nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    align-content: center;
+}
+
+#a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    align-content: center;
+    float: none;
+}
+
+    #a:hover {
+        background-color: #111;
+    }

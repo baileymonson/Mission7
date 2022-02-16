@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<link href="~/lib/css/StyleSheet.css" rel="stylesheet" />
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+@*this is my shared layout page that is applied to all pages*@
+<body style="text-align: center">
+    @*navigation bar*@
+    <div id="nav">
+        <nav id="nav">
+            <a asp-controller="Home" asp-action="Index" id="a">Home</a>
+        </nav>
+     </div>
+        <div>
+            @RenderBody()
+        </div>
+
+
+        <footer>
+            <br />
+            <p>Thank you for visiting my online book store</p>
+            <br />
+        </footer>
+</body>
+</html>

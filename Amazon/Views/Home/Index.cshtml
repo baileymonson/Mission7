@@ -1,0 +1,31 @@
+﻿
+@{
+
+}
+
+@*main index page that prints out all of the data on each book*@ 
+@model BooksViewModel
+
+<h1>Amazon Book List</h1>
+
+@foreach (Book b in Model.Books)
+{
+
+    <ul style="list-style: none">
+        <li style="text-align: center; font-weight: bold; font-size: large">@b.Title</li>
+
+        <li>Author: @b.Author</li>
+        <li>Publisher: @b.Publisher</li>
+        <li>ISBN: @b.Isbn</li>
+        <li>ClassificationL @b.Classification</li>
+        <li>Category: @b.Category</li>
+        <li>Page Count: @b.PageCount</li>
+        <li>Price: $@b.Price</li>
+    </ul>
+
+    <br />
+}
+
+@*link to multiple pages using the pagination*@ 
+
+<div page-blah="@Model.PageInfo" page-action="Index"></div>
