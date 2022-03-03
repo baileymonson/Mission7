@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace Amazon.Models
 {
@@ -11,7 +8,7 @@ namespace Amazon.Models
 
         private BookstoreContext context { get; set; }
 
-        public EFBookRepository (BookstoreContext temp)
+        public EFBookRepository(BookstoreContext temp)
         {
             context = temp;
         }

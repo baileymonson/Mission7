@@ -4,10 +4,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 // tag helper to create pagination 
 namespace Amazon.Infrastructure
@@ -19,7 +15,7 @@ namespace Amazon.Infrastructure
 
         private IUrlHelperFactory uhf;
 
-        public PaginationTagHelper (IUrlHelperFactory temp)
+        public PaginationTagHelper(IUrlHelperFactory temp)
         {
             uhf = temp;
         }
@@ -31,17 +27,28 @@ namespace Amazon.Infrastructure
         // different from view context
         public PageInfo PageBlah { get; set; }
         public string PageAction { get; set; }
-        public override void Process (TagHelperContext thc, TagHelperOutput tho)
+        public string PageClass { get; set; }
+        public bool PageClassesEnabled { get; set; }
+        public string PageClassNormal { get; set; }
+        public string PageClassSelected { get; set; }
+        public override void Process(TagHelperContext thc, TagHelperOutput tho)
         {
             IUrlHelper uh = uhf.GetUrlHelper(vc);
 
             TagBuilder final = new TagBuilder("div");
 
-            for (int i = 1; i < PageBlah.TotalPages; i++)
+            for (int i = 1; i <= PageBlah.TotalPages; i++)
             {
                 TagBuilder tb = new TagBuilder("a");
 
                 tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
+
+                if (PageClassesEnabled)
+                {
+                    tb.AddCssClass(PageClass);
+                    tb.AddCssClass(i == PageBlah.CurrentPage ? PageClassSelected : PageClassNormal);
+                }
+                tb.AddCssClass(PageClass);
                 tb.InnerHtml.Append(i.ToString());
 
                 final.InnerHtml.AppendHtml(tb);

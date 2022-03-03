@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+
+@*this page is the shared layout for the shopping cart*@
+<html>
+<head>
+    <link href="~/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="bg-dark text-white p-2">Amazon Book Store</div>
+
+    <div class="m-1 p-1">
+        @RenderBody()
+    </div>
+</body>
+</html>

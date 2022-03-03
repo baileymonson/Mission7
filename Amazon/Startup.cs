@@ -6,10 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Amazon
 {
@@ -20,7 +16,7 @@ namespace Amazon
 
         public IConfiguration Configuration { get; set; }
 
-        public Startup (IConfiguration iconfiguration)
+        public Startup(IConfiguration iconfiguration)
         {
             Configuration = iconfiguration;
         }
@@ -34,7 +30,17 @@ namespace Amazon
             });
 
             services.AddScoped<IBookRepository, EFBookRepository>();
-            
+            services.AddScoped<IDonationRepository, EFDonationRepository>();
+
+            services.AddRazorPages();
+
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
+            services.AddScoped<Basket>(x => SessionBasket.GetBasket(x));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,12 +52,34 @@ namespace Amazon
             }
             // corresponds to the wwwroot
             app.UseStaticFiles();
+            app.UseSession();
             app.UseRouting();
 
+            // end points will be the death of you. just prepare now
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute("typepage",
+                    "{projectType}/Page{pageNum}",
+                    new { Controller = "Home", action = "Index" });
+
+                endpoints.MapControllerRoute(
+                    name: "Paging",
+                    pattern: "{pageNum}",
+                    defaults: new { Controller = "Home", action = "Index", pageNum = 1 }
+                    );
+
+                endpoints.MapControllerRoute("type",
+                    "{projectType}",
+                    new { Controller = "Home", action = "Index", pageNum = 1 });
+
+
+
+
                 endpoints.MapDefaultControllerRoute();
+
+                endpoints.MapRazorPages();
             });
+
 
 
         }
