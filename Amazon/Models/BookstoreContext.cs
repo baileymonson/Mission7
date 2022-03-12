@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 namespace Amazon.Models
 {
     // scaffoled data from the database link that was sent to us on learning suite to use for this assignment 
-    public partial class BookstoreContext : DbContext
+    public class BookstoreContext : DbContext
     {
         public BookstoreContext()
         {
@@ -21,30 +21,7 @@ namespace Amazon.Models
         }
 
         public DbSet<Book> Books { get; set; }
-
         public DbSet<Donation> Donations { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlite("Data Source = Bookstore.sqlite");
-            }
-        }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Book>(entity =>
-            {
-                entity.HasKey(e => e.BookId);
-                entity.HasIndex(e => e.BookId).IsUnique();
-                entity.Property(e => e.BookId).HasColumnName("BookId").ValueGeneratedNever();
-
-
-            });
-
-            OnModelCreatingPartial(modelBuilder);
-        }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

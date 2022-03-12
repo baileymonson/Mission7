@@ -16,7 +16,7 @@
 
     <DataAnnotationsValidator></DataAnnotationsValidator>
 
-
+    
     <div class="form-group">
         <label>Book Id:</label>
         <input class="form-control" disabled value="@b.BookId" />
@@ -84,7 +84,7 @@
     public NavigationManager NavManager { get; set; }
 
     [Parameter]
-    public long Id { get; set; } = 0;
+    public long Id { get; set; }
 
     public string ThemeColor => Id == 0 ? "primary" : "warning";
 
@@ -112,7 +112,7 @@
         {
             repo.SaveBook(b);
         }
-        NavManager.NavigateTo("/admin/projects", true);
+        NavManager.NavigateTo("/admin/projects");
     }
 
 

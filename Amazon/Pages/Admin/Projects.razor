@@ -3,7 +3,7 @@
 @inherits OwningComponentBase<IBookRepository>  
 
 @* this page is to display all fo the books and gives the user the abilty to CRUD the database *@
-
+@*here is an alert i added to remind the user about the dangers of the delete button*@ 
 <div class="alert alert-danger" role="alert">
     Beware! Once a record is deleted, it is gone forever!
 </div>
@@ -23,21 +23,21 @@
             //list the books
             @foreach (Book b in BookData)
             {
-                <tr>
-                    <td>@b.BookId</td>
-                    <td>@b.Title</td>
-                    <td>@b.Category</td>
-
-                    <td>
-                        <NavLink class="btn btn-outline-primary btn-sm" href="@GetDetailsUrl(b.BookId)">Details</NavLink>
-                    </td>
-                    <td>
-                        <NavLink class="btn btn-outline-warning btn-sm" href="@GetEditUrl(b.BookId)">Edit</NavLink>
-                    </td>
-                    <td>
-                        <NavLink class="btn btn-outline-danger btn-sm" @onclick="@(x => RemoveBook(b))">Delete</NavLink>
-                    </td>
-                </tr>
+        <tr>
+            <td>@b.BookId</td>
+            <td>@b.Title</td>
+            <td>@b.Category</td>
+            @*I added prettier outline buttons here*@
+            <td>
+                <NavLink class="btn btn-outline-primary btn-sm" href="@GetDetailsUrl(b.BookId)">Details</NavLink>
+            </td>
+            <td>
+                <NavLink class="btn btn-outline-warning btn-sm" href="@GetEditUrl(b.BookId)">Edit</NavLink>
+            </td>
+            <td>
+                <NavLink class="btn btn-outline-danger btn-sm" @onclick="@(x => RemoveBook(b))">Delete</NavLink>
+            </td>
+        </tr>
             }
         }
         else
