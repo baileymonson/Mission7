@@ -2,6 +2,7 @@ using Amazon.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +30,12 @@ namespace Amazon
                 options.UseSqlite(Configuration["ConnectionStrings:AmazonDBConnection"]);
             });
 
+            services.AddDbContext<AppIdentityDBContext>(options =>
+                options.UseSqlite(Configuration["ConnectionStrings:IdentityConnection"]));
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDBContext>();
+
             services.AddScoped<IBookRepository, EFBookRepository>();
             services.AddScoped<IDonationRepository, EFDonationRepository>();
 
@@ -54,6 +61,9 @@ namespace Amazon
             app.UseStaticFiles();
             app.UseSession();
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             // end points will be the death of you. just prepare now
             app.UseEndpoints(endpoints =>
@@ -83,7 +93,7 @@ namespace Amazon
                 endpoints.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index");
             });
 
-
+            IdentitySeedData.EnsurePopulated(app);
 
         }
     }
